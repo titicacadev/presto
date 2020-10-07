@@ -638,6 +638,7 @@ public class PrestoS3FileSystem
         // user metadata, and in this case it doesn't matter.
         return objects.stream()
                 .filter(object -> !object.getKey().endsWith(PATH_SEPARATOR))
+                .filter(object -> !object.getKey().endsWith(DIRECTORY_SUFFIX))
                 .filter(object -> !skipGlacierObjects || !isGlacierObject(object))
                 .filter(object -> !isHadoopFolderMarker(object))
                 .map(object -> new FileStatus(
